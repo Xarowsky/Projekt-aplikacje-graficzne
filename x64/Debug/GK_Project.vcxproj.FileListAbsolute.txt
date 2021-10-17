@@ -1,0 +1,2 @@
+D:\VS\GK_Project\x64\Debug\GK_Project.exe
+D:\VS\GK_Project\x64\Debug\GK_Project.pdb
