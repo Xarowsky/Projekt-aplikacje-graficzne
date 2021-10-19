@@ -4,9 +4,17 @@ int WinMain()
 {
     sf::RenderWindow window(sf::VideoMode(640, 480), "SFML works!");
     sf::RectangleShape shape;
+    sf::Texture plane_texture;
+    sf::Sprite plane_sprite;
+
+
     shape.setSize(sf::Vector2f(20, 20));
     window.setFramerateLimit(60);
     shape.setFillColor(sf::Color::Green);
+    if (!plane_texture.loadFromFile("assets/plane_sprites.png"))
+        return 404;
+
+    plane_sprite.setTexture(plane_texture, true);
 
     while (window.isOpen())
     {
@@ -26,16 +34,16 @@ int WinMain()
             
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            shape.move(-10, 0.f);
+            plane_sprite.move(-10, 0.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            shape.move(10, 0.f);
+            plane_sprite.move(10, 0.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-            shape.move(0.f, -10);
+            plane_sprite.move(0.f, -10);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-            shape.move(0.f, 10);
+            plane_sprite.move(0.f, 10);
 
-        window.clear();
-        window.draw(shape);
+        window.clear(sf::Color::Green);
+        window.draw(plane_sprite);
         window.display();
     }
 
