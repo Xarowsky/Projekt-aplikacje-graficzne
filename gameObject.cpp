@@ -1,5 +1,15 @@
 #include"gameObject.h"
 
+gameObject::gameObject()
+{
+
+}
+
+gameObject::gameObject(sf::Texture objectTexture)
+{
+	this->objectSprite = sf::Sprite();
+	this->objectSprite.setTexture(objectTexture);
+}
 
 bool gameObject::detectCollision(gameObject obj1, gameObject obj2)
 {

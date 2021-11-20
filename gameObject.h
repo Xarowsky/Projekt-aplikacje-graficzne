@@ -7,9 +7,12 @@
 class gameObject
 {
 public:
-
+	sf::Texture objTexture;
 	sf::Sprite objectSprite;
+	float xAxisCorrection = 0;
+	float yAxisCorrection = 0;
 
+	gameObject();
 	gameObject(sf::Texture objectTexture);
 
 	bool detectCollision(gameObject obj1, gameObject obj2);

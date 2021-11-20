@@ -7,8 +7,9 @@ class player :
     public gameObject
 {
 public:
-    int xAxisCorrection = 0;
-    int yAxisCorrection = 0;
+
+    player();
+    player(sf::Texture *objectTexture);
 
     void playerControls(int screenWidth, int screenHeight);
 };

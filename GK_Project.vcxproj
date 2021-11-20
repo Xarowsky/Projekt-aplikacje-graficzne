@@ -147,19 +147,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="gameLoop.cpp" />
-    <ClCompile Include="gameTextures.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="textures.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="gameLoop.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
-    <ClInclude Include="gameTextures.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="textures.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
