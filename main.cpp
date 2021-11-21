@@ -1,5 +1,4 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "game.h"
 
 
@@ -7,11 +6,11 @@ int WinMain()
 {
     int screenHeight = 480;
     int screenWidth = 640;
-    sf::RenderWindow window(sf::VideoMode(screenWidth, screenHeight), "SFML works!");
+    sf::RenderWindow window;
 
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(144);
  
-    game newGame = game(screenHeight, screenWidth, &window);
+    game newGame = game();
 
     while (window.isOpen())
     {

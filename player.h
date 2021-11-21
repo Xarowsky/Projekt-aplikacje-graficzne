@@ -11,6 +11,8 @@ public:
     player();
     player(sf::Texture *objectTexture);
 
-    void playerControls(int screenWidth, int screenHeight);
+    void playerMove(const float dirX, const float dirY, sf::RenderWindow *window);
+    void render(sf::RenderTarget& target);
+    void worldCollision(sf::RenderWindow *window);
 };
 

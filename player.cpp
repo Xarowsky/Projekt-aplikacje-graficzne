@@ -12,23 +12,33 @@ player::player(sf::Texture *objectTexture)
     this->objectSprite.setTexture(objTexture, true);
 }
 
-void player::playerControls(int screenWidth, int screenHeight)
+void player::render(sf::RenderTarget& target)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        this->objectSprite.move(-PLAYER_SPEED, 0.f);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        this->objectSprite.move(PLAYER_SPEED, 0.f);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-        this->objectSprite.move(0.f, -PLAYER_SPEED);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-        this->objectSprite.move(0.f, PLAYER_SPEED);
-    
- //   if ((xAxisCorrection = this->borderXAxisCollision(screenHeight)) != 0)
- //   {
-//        this->objectSprite.move(0.f, xAxisCorrection);
-//    }
-//    if((yAxisCorrection = this->borderYAxisCollision(screenWidth)) != 0)
-//    {
-//        this->objectSprite.move(yAxisCorrection, 0.f);
-//    }
+    target.draw(this->objectSprite);
+}
+
+void player::playerMove(const float dirX, const float dirY, sf::RenderWindow *window)
+{
+    this->objectSprite.move(PLAYER_SPEED * dirX, PLAYER_SPEED * dirY);
+	this->worldCollision(window);
+}
+
+void player::worldCollision(sf::RenderWindow *window)
+{
+	if (this->objectSprite.getGlobalBounds().left < 0.f)
+	{
+		this->objectSprite.setPosition(0.f, this->objectSprite.getGlobalBounds().top);
+	}
+	else if (this->objectSprite.getGlobalBounds().left + this->objectSprite.getGlobalBounds().width >= window->getSize().x)
+	{
+		this->objectSprite.setPosition(window->getSize().x - this->objectSprite.getGlobalBounds().width, this->objectSprite.getGlobalBounds().top);
+	}
+	if (this->objectSprite.getGlobalBounds().top < 0.f)
+	{
+		this->objectSprite.setPosition(this->objectSprite.getGlobalBounds().left, 0.f);
+	}
+	else if (this->objectSprite.getGlobalBounds().top + this->objectSprite.getGlobalBounds().height >= window->getSize().y)
+	{
+		this->objectSprite.setPosition(this->objectSprite.getGlobalBounds().left, window->getSize().y - this->objectSprite.getGlobalBounds().height);
+	}
 }

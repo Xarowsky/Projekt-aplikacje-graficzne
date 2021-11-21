@@ -1,5 +1,8 @@
 #pragma once
 #include <list>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
 #include "textures.h"
 #include "gameObject.h"
 #include "player.h"
@@ -10,13 +13,16 @@ private:
 	sf::RenderWindow *window;
 	textures textureBank;
 	std::list<gameObject> gameObjectBank;
-	player gamePlayer;
+	player *gamePlayer;
 	int screenHeight;
 	int screenWidth;
 public:
 	game();
-	game(int scrHeight, int scrWidth, sf::RenderWindow *win);
 	void loop();
+	void initWindow();
+	void playerInit();
+	void updateControls();
 	void windowRefresh();
 	void windowCtl();
+	void initBackgroud();
 };
