@@ -8,6 +8,8 @@ textures::textures()
 		exit(1);
 	if (!background.loadFromFile("assets/galaxy.jpg"))
 		exit(1);
+	if (!playerProjectile.loadFromFile("assets/projectile.png"))
+		exit(1);
 }
 
 
@@ -15,7 +17,6 @@ sf::Texture *textures::getPlayerTexture()
 {
 	return &playerPlane;
 }
-
 
 sf::Texture *textures::getBackgroundTexture()
 {
@@ -25,4 +26,9 @@ sf::Texture *textures::getBackgroundTexture()
 sf::Texture* textures::getPlayerProjectile()
 {
 	return &playerProjectile;
+}
+
+sf::Texture* textures::getBulletTexture()
+{
+	return &bulletTexture;
 }
