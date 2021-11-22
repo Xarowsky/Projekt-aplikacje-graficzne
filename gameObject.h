@@ -13,8 +13,9 @@ public:
 	float yAxisCorrection = 0;
 
 	gameObject();
-	gameObject(sf::Texture objectTexture);
+	gameObject(sf::Texture *objectTexture);
 
+	void render(sf::RenderTarget& target);
 	bool detectCollision(gameObject obj1, gameObject obj2);
 	float borderYAxisCollision(float screenHeight);
 	float borderXAxisCollision(float screenWidth);

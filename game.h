@@ -14,6 +14,7 @@ private:
 	textures textureBank;
 	std::list<gameObject> gameObjectBank;
 	player *gamePlayer;
+	gameObject *background;
 	int screenHeight;
 	int screenWidth;
 public:

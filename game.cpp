@@ -3,6 +3,7 @@
 
 game::game()
 {
+	textureBank = textures();
 	this->initWindow();
 	this->initBackgroud();
 	this->playerInit();
@@ -11,18 +12,17 @@ game::game()
 
 void game::initBackgroud()
 {
-	
+	background = new gameObject(textureBank.getBackgroundTexture());
 }
 
 void game::playerInit() 
 {
-	textureBank = textures();
 	this->gamePlayer = new player(textureBank.getPlayerTexture());
 }
 
 void game::initWindow() 
 {
-	this->window = new sf::RenderWindow(sf::VideoMode(1280, 720), "SFML works!");
+	this->window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Kapitan",  sf::Style::Close);
 	window->setFramerateLimit(60);
 }
 
@@ -51,6 +51,7 @@ void game::loop()
 void game::windowRefresh()
 {
 	this->window->clear();
+	this->background->render(*window);
 	this->gamePlayer->render(*window);
 	this->window->display();
 }

@@ -5,10 +5,16 @@ gameObject::gameObject()
 
 }
 
-gameObject::gameObject(sf::Texture objectTexture)
+gameObject::gameObject(sf::Texture *objectTexture)
 {
+	this->objTexture = sf::Texture(*objectTexture);
 	this->objectSprite = sf::Sprite();
-	this->objectSprite.setTexture(objectTexture);
+	this->objectSprite.setTexture(objTexture, true);
+}
+
+void gameObject::render(sf::RenderTarget& target)
+{
+	target.draw(this->objectSprite);
 }
 
 bool gameObject::detectCollision(gameObject obj1, gameObject obj2)
