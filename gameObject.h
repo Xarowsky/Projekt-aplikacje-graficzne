@@ -17,7 +17,5 @@ public:
 
 	void render(sf::RenderTarget& target);
 	bool detectCollision(gameObject obj1, gameObject obj2);
-	float borderYAxisCollision(float screenHeight);
-	float borderXAxisCollision(float screenWidth);
 	void moveObject(float x, float y);
 };

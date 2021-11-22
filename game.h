@@ -18,7 +18,7 @@ private:
 	gameObject *background;
 	int screenHeight;
 	int screenWidth;
-
+//	virtual ~game();
 public:
 	game();
 	void loop();

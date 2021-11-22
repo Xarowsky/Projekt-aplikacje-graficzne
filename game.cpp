@@ -26,7 +26,7 @@ void game::playerInit()
 
 void game::initWindow() 
 {
-	this->window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Kapitan",  sf::Style::Close);
+	this->window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Kapitan Bomba",  sf::Style::Close);
 	window->setFramerateLimit(60);
 }
 

@@ -21,3 +21,8 @@ sf::Texture *textures::getBackgroundTexture()
 {
 	return &background;
 }
+
+sf::Texture* textures::getPlayerProjectile()
+{
+	return &playerProjectile;
+}
