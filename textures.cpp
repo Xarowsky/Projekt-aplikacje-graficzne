@@ -10,10 +10,12 @@ textures::textures()
 		exit(1);
 }
 
+
 sf::Texture *textures::getPlayerTexture()
 {
 	return &playerPlane;
 }
+
 
 sf::Texture *textures::getBackgroundTexture()
 {

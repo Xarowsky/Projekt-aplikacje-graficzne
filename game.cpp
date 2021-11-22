@@ -1,6 +1,7 @@
 #pragma once
 #include "game.h"
 
+
 game::game()
 {
 	textureBank = textures();
@@ -10,21 +11,25 @@ game::game()
 	this->loop();
 }
 
+
 void game::initBackgroud()
 {
 	background = new gameObject(textureBank.getBackgroundTexture());
 }
+
 
 void game::playerInit() 
 {
 	this->gamePlayer = new player(textureBank.getPlayerTexture());
 }
 
+
 void game::initWindow() 
 {
 	this->window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Kapitan",  sf::Style::Close);
 	window->setFramerateLimit(60);
 }
+
 
 void game::updateControls()
 {
@@ -38,6 +43,7 @@ void game::updateControls()
 		this->gamePlayer->playerMove(0.f, 1.f, this->window);
 }
 
+
 void game::loop()
 {
 	while (window->isOpen())
@@ -48,6 +54,7 @@ void game::loop()
 	}
 }
 
+
 void game::windowRefresh()
 {
 	this->window->clear();
@@ -55,6 +62,7 @@ void game::windowRefresh()
 	this->gamePlayer->render(*window);
 	this->window->display();
 }
+
 
 void game::windowCtl()
 {

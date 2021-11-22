@@ -12,7 +12,6 @@ public:
     player(sf::Texture *objectTexture);
 
     void playerMove(const float dirX, const float dirY, sf::RenderWindow *window);
-    void render(sf::RenderTarget& target);
     void worldCollision(sf::RenderWindow *window);
 };
 

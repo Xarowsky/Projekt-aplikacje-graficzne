@@ -1,9 +1,11 @@
 #include"gameObject.h"
 
+
 gameObject::gameObject()
 {
 
 }
+
 
 gameObject::gameObject(sf::Texture *objectTexture)
 {
@@ -12,10 +14,12 @@ gameObject::gameObject(sf::Texture *objectTexture)
 	this->objectSprite.setTexture(objTexture, true);
 }
 
+
 void gameObject::render(sf::RenderTarget& target)
 {
 	target.draw(this->objectSprite);
 }
+
 
 bool gameObject::detectCollision(gameObject obj1, gameObject obj2)
 {
@@ -25,6 +29,7 @@ bool gameObject::detectCollision(gameObject obj1, gameObject obj2)
 		return false;
 }
 
+
 float gameObject::borderYAxisCollision(float screenHeight)
 {
 	if (OBJECTY > 0.f && OBJECTY < screenHeight)
@@ -33,6 +38,7 @@ float gameObject::borderYAxisCollision(float screenHeight)
 		return -(OBJECTY - screenHeight);
 }
 
+
 float gameObject::borderXAxisCollision(float screenWidth)
 {
 	if (OBJECTX > 0.f && OBJECTX < screenWidth)
@@ -40,6 +46,7 @@ float gameObject::borderXAxisCollision(float screenWidth)
 	else
 		return -(OBJECTX - screenWidth);
 }
+
 
 void gameObject::moveObject(float x, float y)
 {

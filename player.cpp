@@ -1,9 +1,11 @@
 #include "player.h"
 
+
 player::player()
 {
 
 }
+
 
 player::player(sf::Texture *objectTexture)
 {
@@ -12,16 +14,13 @@ player::player(sf::Texture *objectTexture)
     this->objectSprite.setTexture(objTexture, true);
 }
 
-void player::render(sf::RenderTarget& target)
-{
-    target.draw(this->objectSprite);
-}
 
 void player::playerMove(const float dirX, const float dirY, sf::RenderWindow *window)
 {
     this->objectSprite.move(PLAYER_SPEED * dirX, PLAYER_SPEED * dirY);
 	this->worldCollision(window);
 }
+
 
 void player::worldCollision(sf::RenderWindow *window)
 {
