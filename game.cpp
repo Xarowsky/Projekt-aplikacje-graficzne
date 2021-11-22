@@ -20,7 +20,7 @@ void game::initBackgroud()
 
 void game::playerInit() 
 {
-	this->gamePlayer = new player(textureBank.getPlayerTexture());
+	this->gamePlayer = new player(textureBank.getPlayerTexture(), window);
 }
 
 

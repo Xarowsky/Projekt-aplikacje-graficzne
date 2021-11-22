@@ -7,11 +7,14 @@ player::player()
 }
 
 
-player::player(sf::Texture *objectTexture)
+player::player(sf::Texture *objectTexture, sf::RenderWindow *win)
 {
     this->objTexture = sf::Texture(*objectTexture);
     this->objectSprite = sf::Sprite();
     this->objectSprite.setTexture(objTexture, true);
+	this->objectSprite.setRotation(90.f);
+	this->objectSprite.setOrigin(objectSprite.getGlobalBounds().width / 2, objectSprite.getGlobalBounds().height / 2);
+	this->objectSprite.setPosition(((float)win->getSize().x/2), ((float)win->getSize().y/2));
 }
 
 
@@ -24,20 +27,20 @@ void player::playerMove(const float dirX, const float dirY, sf::RenderWindow *wi
 
 void player::worldCollision(sf::RenderWindow *window)
 {
-	if (this->objectSprite.getGlobalBounds().left < 0.f)
+	if (this->objectSprite.getPosition().x < 0.f)
 	{
-		this->objectSprite.setPosition(0.f, this->objectSprite.getGlobalBounds().top);
+		this->objectSprite.setPosition(0.f, this->objectSprite.getPosition().y);
 	}
-	else if (this->objectSprite.getGlobalBounds().left + this->objectSprite.getGlobalBounds().width >= window->getSize().x)
+	else if (this->objectSprite.getPosition().x > window->getSize().x)
 	{
-		this->objectSprite.setPosition(window->getSize().x - this->objectSprite.getGlobalBounds().width, this->objectSprite.getGlobalBounds().top);
+		this->objectSprite.setPosition(window->getSize().x, this->objectSprite.getPosition().y);
 	}
-	if (this->objectSprite.getGlobalBounds().top < 0.f)
+	else if (this->objectSprite.getPosition().y < 0.f)
 	{
-		this->objectSprite.setPosition(this->objectSprite.getGlobalBounds().left, 0.f);
+		this->objectSprite.setPosition(this->objectSprite.getPosition().x, 0.f);
 	}
-	else if (this->objectSprite.getGlobalBounds().top + this->objectSprite.getGlobalBounds().height >= window->getSize().y)
+	else if (this->objectSprite.getPosition().y > window->getSize().y)
 	{
-		this->objectSprite.setPosition(this->objectSprite.getGlobalBounds().left, window->getSize().y - this->objectSprite.getGlobalBounds().height);
+		this->objectSprite.setPosition(this->objectSprite.getPosition().x, window->getSize().y);
 	}
 }

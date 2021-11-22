@@ -9,7 +9,7 @@ class player :
 public:
 
     player();
-    player(sf::Texture *objectTexture);
+    player(sf::Texture *objectTexture, sf::RenderWindow *win);
 
     void playerMove(const float dirX, const float dirY, sf::RenderWindow *window);
     void worldCollision(sf::RenderWindow *window);

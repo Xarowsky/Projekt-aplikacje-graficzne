@@ -18,6 +18,7 @@ private:
 	gameObject *background;
 	int screenHeight;
 	int screenWidth;
+
 public:
 	game();
 	void loop();
