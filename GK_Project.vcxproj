@@ -148,18 +148,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="LineSegment.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="Point2D.cpp" />
+    <ClCompile Include="PrimitiveRenderer.cpp" />
     <ClCompile Include="projectile.cpp" />
     <ClCompile Include="textures.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
+    <ClInclude Include="LineSegment.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="Point2D.h" />
+    <ClInclude Include="PrimitiveRenderer.h" />
     <ClInclude Include="projectile.h" />
     <ClInclude Include="textures.h" />
   </ItemGroup>
