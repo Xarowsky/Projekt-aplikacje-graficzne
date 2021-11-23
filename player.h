@@ -13,5 +13,6 @@ public:
 
     void playerMove(const float dirX, const float dirY, sf::RenderWindow *window);
     void worldCollision(sf::RenderWindow *window);
+    void setType();
 };
 

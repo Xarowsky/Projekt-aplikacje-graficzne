@@ -17,7 +17,7 @@ class game
 private:
 	sf::RenderWindow *window;
 	textures textureBank;
-	std::list<gameObject> gameObjectBank;
+	std::list<gameObject*> gameObjectBank;
 	player *gamePlayer;
 	projectile *newProjectile;
 	gameObject *background;
@@ -34,12 +34,14 @@ public:
 	void initWindow();
 	void initGUI();
 	void renderGUI();
-	void initBullets();
-	void updateBullets();
-	void renderBullets();
+	//void initBullets();
 	void playerInit();
 	void updateControls();
 	void windowRefresh();
 	void windowCtl();
 	void initBackgroud();
+	void updateObjects();
+	void renderObjects();
+	void shoot();
+	
 };

@@ -7,6 +7,7 @@
 class gameObject
 {
 public:
+	std::string type;
 	sf::Texture objTexture;
 	sf::Sprite objectSprite;
 	float xAxisCorrection = 0;
@@ -18,4 +19,5 @@ public:
 	void render(sf::RenderTarget& target);
 	bool detectCollision(gameObject obj1, gameObject obj2);
 	void moveObject(float x, float y);
+	void setType();
 };

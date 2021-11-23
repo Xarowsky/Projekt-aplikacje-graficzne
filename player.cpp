@@ -44,3 +44,8 @@ void player::worldCollision(sf::RenderWindow *window)
 		this->objectSprite.setPosition(this->objectSprite.getPosition().x, window->getSize().y);
 	}
 }
+
+void player::setType()
+{
+	this->type = "player";
+}

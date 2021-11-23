@@ -7,7 +7,7 @@ game::game()
 	textureBank = textures();
 	this->initWindow();
 	this->initBackgroud();
-	this->initBullets();
+	//this->initBullets();
 	this->playerInit();
 	this->initGUI();
 	this->loop();
@@ -25,10 +25,11 @@ void game::playerInit()
 	this->gamePlayer = new player(textureBank.getPlayerTexture(), window);
 }
 
-void game::initBullets()
-{
-	this->newProjectile = new projectile(textureBank.getPlayerProjectile(), window);
-}
+//void game::initBullets()
+//{
+//	projectile* newProjectile = new projectile(textureBank.getPlayerProjectile(), window);
+//	this->gameObjectBank.push_back(newProjectile);
+//}
 
 void game::initGUI()
 {
@@ -57,11 +58,13 @@ void game::initGUI()
 	this->hpText.setString(hp_stream.str());
 }
 
+
 void game::renderGUI()
 {
 	this->window->draw(this->pointText);
 	this->window->draw(this->hpText);
 }
+
 
 void game::initWindow() 
 {
@@ -81,6 +84,8 @@ void game::updateControls()
 		this->gamePlayer->playerMove(0.f, -1.f, this->window);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		this->gamePlayer->playerMove(0.f, 1.f, this->window);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		this->shoot();
 }
 
 
@@ -99,8 +104,10 @@ void game::windowRefresh()
 {
 	this->window->clear();
 	this->background->render(*window);
+	//this->newProjectile->render(*window);
+	this->updateObjects();
+	this->renderObjects();
 	this->gamePlayer->render(*window);
-	this->newProjectile->render(*window);
 	this->renderGUI();
 
 	this->window->display();
@@ -123,5 +130,33 @@ void game::windowCtl()
 			break;
 		}
 
+	}
+}
+
+
+void game::updateObjects()
+{
+	std::list<gameObject*>::iterator it = gameObjectBank.begin();
+	for (it; it != gameObjectBank.end(); it++)
+	{
+		if ((*it)->type == "projectile")
+			((projectile*)(*it))->update();
+	}
+}
+
+
+void game::shoot()
+{
+	projectile* newProjectile = new projectile(textureBank.getPlayerProjectile(), window, gamePlayer->objectSprite.getPosition().x, gamePlayer->objectSprite.getPosition().y);
+	this->gameObjectBank.push_back(newProjectile);
+}
+
+
+void game::renderObjects()
+{
+	std::list<gameObject*>::iterator it = gameObjectBank.begin();
+	for (it; it != gameObjectBank.end(); it++)
+	{
+		(*it)->render(*window);
 	}
 }

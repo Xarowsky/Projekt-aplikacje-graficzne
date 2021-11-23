@@ -34,3 +34,9 @@ void gameObject::moveObject(float x, float y)
 {
 	this->objectSprite.move(x, y);
 }
+
+
+void gameObject::setType()
+{
+
+}
