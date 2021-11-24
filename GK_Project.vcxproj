@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="LineChain.cpp" />
     <ClCompile Include="LineSegment.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="gameObject.cpp" />
@@ -161,6 +162,7 @@
   <ItemGroup>
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
+    <ClInclude Include="LineChain.h" />
     <ClInclude Include="LineSegment.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="player.h" />

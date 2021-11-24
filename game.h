@@ -17,8 +17,10 @@ class game
 private:
 	sf::RenderWindow *window;
 	textures textureBank;
-	std::list<gameObject*> gameObjectBank;
+	std::vector<gameObject*> gameObjectBank;
 	player *gamePlayer;
+	float time;
+	float timer = 0, delay = 0.2;
 	projectile *newProjectile;
 	gameObject *background;
 	sf::Font font;

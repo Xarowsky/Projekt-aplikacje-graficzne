@@ -1,5 +1,7 @@
 #pragma once
 #include "game.h"
+#include "LineSegment.h"
+#include "PrimitiveRenderer.h"
 
 
 game::game()
@@ -41,7 +43,7 @@ void game::initGUI()
 	this->pointText.setCharacterSize(20);
 	this->pointText.setFillColor(sf::Color::White);
 
-	this->hpText.setPosition(this->window->getSize().x / 1.1, 10.f);
+	this->hpText.setPosition(this->window->getSize().x / 1.2, 10.f);
 	this->hpText.setFont(this->font);
 	this->hpText.setCharacterSize(20);
 	this->hpText.setFillColor(sf::Color::White);
@@ -61,8 +63,17 @@ void game::initGUI()
 
 void game::renderGUI()
 {
+	PrimitiveRenderer renderer;
 	this->window->draw(this->pointText);
 	this->window->draw(this->hpText);
+	LineSegment line1(sf::Vector2f(1110.f, 10.f), sf::Vector2f(1260.f, 10.f), sf::Color::Red);
+	LineSegment line2(sf::Vector2f(1110.f, 40.f), sf::Vector2f(1260.f, 40.f), sf::Color::Red);
+	LineSegment line3(sf::Vector2f(1110.f, 10.f), sf::Vector2f(1110.f, 40.f), sf::Color::Red);
+	LineSegment line4(sf::Vector2f(1260.f, 10.f), sf::Vector2f(1260.f, 40.f), sf::Color::Red);
+	renderer.drawLine(window, &line1);
+	renderer.drawLine(window, &line2);
+	renderer.drawLine(window, &line3);
+	renderer.drawLine(window, &line4);
 }
 
 
@@ -85,14 +96,23 @@ void game::updateControls()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		this->gamePlayer->playerMove(0.f, 1.f, this->window);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		this->shoot();
+	{
+		if (timer > delay) {
+			this->shoot();
+			timer = 0;
+		}
+	}
 }
 
 
 void game::loop()
 {
+	Clock clock;
 	while (window->isOpen())
 	{
+		time = clock.getElapsedTime().asSeconds();
+		clock.restart();
+		timer += time;
 		this->updateControls();
 		this->windowCtl();
 		this->windowRefresh();
@@ -104,12 +124,10 @@ void game::windowRefresh()
 {
 	this->window->clear();
 	this->background->render(*window);
-	//this->newProjectile->render(*window);
 	this->updateObjects();
 	this->renderObjects();
 	this->gamePlayer->render(*window);
 	this->renderGUI();
-
 	this->window->display();
 }
 
@@ -136,7 +154,7 @@ void game::windowCtl()
 
 void game::updateObjects()
 {
-	std::list<gameObject*>::iterator it = gameObjectBank.begin();
+	std::vector<gameObject*>::iterator it = gameObjectBank.begin();
 	for (it; it != gameObjectBank.end(); it++)
 	{
 		if ((*it)->type == "projectile")
@@ -149,12 +167,20 @@ void game::shoot()
 {
 	projectile* newProjectile = new projectile(textureBank.getPlayerProjectile(), window, gamePlayer->objectSprite.getPosition().x, gamePlayer->objectSprite.getPosition().y);
 	this->gameObjectBank.push_back(newProjectile);
+	/*for (int i = 0; i < this->gameObjectBank.size(); i++)
+	{
+		if (this->newProjectile->objectSprite.getPosition().x ==
+			this->window->getSize().x)
+		{
+			this->gameObjectBank.erase(gameObjectBank.begin() + i);
+		}
+	}*/
 }
 
 
 void game::renderObjects()
 {
-	std::list<gameObject*>::iterator it = gameObjectBank.begin();
+	std::vector<gameObject*>::iterator it = gameObjectBank.begin();
 	for (it; it != gameObjectBank.end(); it++)
 	{
 		(*it)->render(*window);
