@@ -1,14 +1,14 @@
 #include "enemies.h"
 
-void enemies::drawEnemies(RenderWindow* window, float radius, int points, Color poly_color)
+void enemies::drawEnemies(RenderWindow* window, float radius, int points)
 {
 	enemy.setRadius(radius);
 	enemy.setPointCount(points);
-	enemy.setFillColor(poly_color);
+	enemy.setFillColor(enemyColor);
 	window->draw(enemy);
 }
 
-void enemies::updateEnemy(float speed)
+void enemies::updateEnemy()
 {
 	enemy.move(speed, 0.f);
 }
@@ -16,3 +16,22 @@ void enemies::updateEnemy(float speed)
 enemies::enemies()
 {
 }
+
+enemies::enemies(float speed, RenderWindow *window, sf::Color col)
+{
+	this->speed = speed;
+	this->enemy.setPosition(window->getSize().x, (rand() % (window->getSize().y - 50))+25);
+	enemyColor = col;
+}
+
+enemies::enemies(float x, float y)
+{
+	this->speed = 0.f;
+	this->enemy.setPosition(x,y);
+}
+
+enemies::~enemies()
+{
+	enemy.~CircleShape();
+}
+

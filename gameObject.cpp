@@ -14,6 +14,12 @@ gameObject::gameObject(sf::Texture *objectTexture)
 	this->objectSprite.setTexture(objTexture, true);
 }
 
+gameObject::~gameObject()
+{
+	type.~basic_string();
+	objectSprite.~Sprite();
+}
+
 
 void gameObject::render(sf::RenderTarget& target)
 {

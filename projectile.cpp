@@ -23,3 +23,4 @@ void projectile::update()
 {
 	this->objectSprite.move(15.f, 0.f);
 }
+

@@ -15,6 +15,7 @@ public:
 
 	gameObject();
 	gameObject(sf::Texture *objectTexture);
+	~gameObject();
 
 	void render(sf::RenderTarget& target);
 	bool detectCollision(gameObject obj1, gameObject obj2);

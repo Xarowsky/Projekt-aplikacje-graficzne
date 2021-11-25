@@ -12,11 +12,13 @@
 #include <iostream>
 #include <sstream>
 #include "enemies.h"
+#include "GUI.h"
 
 
 class game
 {
 private:
+	sf::Color ColArr[5] = { sf::Color::Red, sf::Color::Green, sf::Color::Magenta, sf::Color::Cyan, sf::Color::White};
 	sf::RenderWindow *window;
 	textures textureBank;
 	std::vector<enemies*> enemies_list;
@@ -24,25 +26,26 @@ private:
 	player *gamePlayer;
 	float time;
 	float time2;
-	enemies* enemy = new enemies();
 	SoundBuffer buffer;
+	SoundBuffer death_buffer;
+	SoundBuffer oof;
 	Sound sound;
+	Sound death_sound;
+	Sound gotHit;
 	float timer = 0, delay = 0.2, timer2 = 0, delay2 = 5;
 	projectile *newProjectile;
 	gameObject *background;
-	sf::Font font;
-	sf::Text pointText;
-	sf::Text hpText;
+
 	int screenHeight;
 	int screenWidth;
-	int points;
+
+	GUI gamegui;
+
 //	virtual ~game();
 public:
 	game();
 	void loop();
 	void initWindow();
-	void initGUI();
-	void renderGUI();
 	void initSound();
 	void playerInit();
 	void spawnEnemies();
@@ -56,5 +59,5 @@ public:
 	void updateObjects();
 	void renderObjects();
 	void shoot();
-	
+	bool gameover = false;
 };
