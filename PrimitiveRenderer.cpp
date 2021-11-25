@@ -35,3 +35,7 @@ void PrimitiveRenderer::drawPolygons(RenderWindow* window, float radius, int poi
 	polygon.setPosition(pos);
 	window->draw(polygon);
 }
+
+PrimitiveRenderer::PrimitiveRenderer()
+{
+}

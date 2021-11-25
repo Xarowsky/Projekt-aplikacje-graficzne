@@ -21,5 +21,5 @@ projectile::projectile(sf::Texture* objectTexture, sf::RenderWindow* win, float 
 
 void projectile::update()
 {
-	this->objectSprite.move(15.f,0.f);
+	this->objectSprite.move(15.f, 0.f);
 }

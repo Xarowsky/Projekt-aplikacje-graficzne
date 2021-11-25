@@ -9,6 +9,7 @@ game::game()
 	textureBank = textures();
 	this->initWindow();
 	this->initBackgroud();
+	this->initSound();
 	//this->initBullets();
 	this->playerInit();
 	this->initGUI();
@@ -76,6 +77,13 @@ void game::renderGUI()
 	renderer.drawLine(window, &line4);
 }
 
+void game::initSound()
+{
+	if (!buffer.loadFromFile("assets/hit.wav"))
+		exit(0);
+	sound.setBuffer(buffer);
+}
+
 
 void game::initWindow() 
 {
@@ -108,11 +116,15 @@ void game::updateControls()
 void game::loop()
 {
 	Clock clock;
+	Clock clock2;
 	while (window->isOpen())
 	{
 		time = clock.getElapsedTime().asSeconds();
+		time2 = clock2.getElapsedTime().asSeconds();
 		clock.restart();
+		clock2.restart();
 		timer += time;
+		timer2 += time2;
 		this->updateControls();
 		this->windowCtl();
 		this->windowRefresh();
@@ -126,6 +138,13 @@ void game::windowRefresh()
 	this->background->render(*window);
 	this->updateObjects();
 	this->renderObjects();
+	this->updateEnemies();
+	this->renderEnemies();
+	if (timer2 > delay2)
+	{
+		this->spawnEnemies();
+		timer2 = 0;
+	}
 	this->gamePlayer->render(*window);
 	this->renderGUI();
 	this->window->display();
@@ -151,32 +170,29 @@ void game::windowCtl()
 	}
 }
 
+bool game::isColliding(Sprite s1, CircleShape s2)
+{
+	return s1.getGlobalBounds().intersects(s2.getGlobalBounds());
+}
+
 
 void game::updateObjects()
 {
-	std::vector<gameObject*>::iterator it = gameObjectBank.begin();
+;	std::vector<gameObject*>::iterator it = gameObjectBank.begin();
 	for (it; it != gameObjectBank.end(); it++)
 	{
 		if ((*it)->type == "projectile")
 			((projectile*)(*it))->update();
+		if (isColliding((*it)->objectSprite, enemy->enemy))
+			sound.play();
 	}
 }
-
 
 void game::shoot()
 {
 	projectile* newProjectile = new projectile(textureBank.getPlayerProjectile(), window, gamePlayer->objectSprite.getPosition().x, gamePlayer->objectSprite.getPosition().y);
 	this->gameObjectBank.push_back(newProjectile);
-	/*for (int i = 0; i < this->gameObjectBank.size(); i++)
-	{
-		if (this->newProjectile->objectSprite.getPosition().x ==
-			this->window->getSize().x)
-		{
-			this->gameObjectBank.erase(gameObjectBank.begin() + i);
-		}
-	}*/
 }
-
 
 void game::renderObjects()
 {
@@ -184,5 +200,30 @@ void game::renderObjects()
 	for (it; it != gameObjectBank.end(); it++)
 	{
 		(*it)->render(*window);
+	}
+}
+
+void game::spawnEnemies()
+{
+	enemy->enemy.setPosition(window->getSize().x, rand() % window->getSize().y);
+	this->enemies_list.push_back(enemy);
+}
+
+void game::updateEnemies()
+{
+	std::vector<enemies*>::iterator it = enemies_list.begin();
+	float speed = -5.f;
+	for (it; it < enemies_list.end(); it++)
+	{
+		(*it)->updateEnemy(speed);
+	}
+}
+
+void game::renderEnemies()
+{
+	std::vector<enemies *>::iterator it = enemies_list.begin();
+	for (it; it != enemies_list.end(); it++)
+	{
+		(*it)->drawEnemies(window, 20.f, 8, Color::Red);
 	}
 }
