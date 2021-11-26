@@ -144,10 +144,17 @@ void game::windowCtl()
 			if (event.key.code == sf::Keyboard::Escape)
 				window->close();
 			if (event.key.code == sf::Keyboard::Up)
-				gameMenu.MoveUp();
+			{
+				if(!isPressed)
+					gameMenu.MoveUp();
+			}
 			if (event.key.code == sf::Keyboard::Down)
-				gameMenu.MoveDown();
-			if (event.key.code == sf::Keyboard::Enter) {
+			{
+				if(!isPressed)
+					gameMenu.MoveDown();
+			}
+			if (event.key.code == sf::Keyboard::Enter)
+			{
 				isPressed = true;
 				menuOff = true;
 			}
@@ -258,17 +265,16 @@ void game::renderObjects()
 
 void game::spawnEnemies()
 {
-	int amount = rand() % 4 + difficulty;
+	int amount = rand() % (8 + difficulty);
 	if (gamegui.getPoints() > 250) {
-		difficulty = 4;
+		difficulty += 4;
 		delay2 = 2;
 	}
 	if (gamegui.getPoints() > 500) {
-		difficulty = 8;
+		difficulty += 4;
 		delay2 = 2;
 	}
 	if (gamegui.getPoints() > 1000) {
-		difficulty = 16;
 		delay2 = 1;
 	}
 	for (int i = 0; i < amount; ++i)
