@@ -85,7 +85,7 @@ public:
     /// \param characterSize  Base size of characters, in pixels
     ///
     ////////////////////////////////////////////////////////////
-    Text(const String& string, const Font& font, unsigned int characterSize = 30);
+    Text(const String& string, const Font& menu_font, unsigned int characterSize = 30);
 
     ////////////////////////////////////////////////////////////
     /// \brief Set the text's string
@@ -123,7 +123,7 @@ public:
     /// \see getFont
     ///
     ////////////////////////////////////////////////////////////
-    void setFont(const Font& font);
+    void setFont(const Font& menu_font);
 
     ////////////////////////////////////////////////////////////
     /// \brief Set the character size

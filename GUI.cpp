@@ -3,7 +3,8 @@
 
 GUI::GUI()
 {
-
+	points = 0;
+	hp = 0;
 }
 
 
@@ -11,24 +12,24 @@ void GUI::initGUI(sf::RenderWindow *window)
 {
 	points = 0;
 	hp = 150.f;
-	if (!this->font.loadFromFile("assets/impact.ttf"))
+	if (!this->menu_font.loadFromFile("assets/impact.ttf"))
 		std::cout << "ERROR:Failed to load font" << "\n";
 
 	if (!this->game_over_font.loadFromFile("assets/impact.ttf"))
 		std::cout << "ERROR:Failed to load font" << "\n";
 
-	this->game_over_text.setPosition((window->getSize().x / 2)-125, (window->getSize().y / 2)-80);
+	this->game_over_text.setPosition((window->getSize().x / 2) - 125, (window->getSize().y / 2) - 80);
 	this->game_over_text.setFont(this->game_over_font);
 	this->game_over_text.setCharacterSize(40);
 	this->game_over_text.setFillColor(sf::Color::Red);
 
 	this->pointText.setPosition(10.f, 10.f);
-	this->pointText.setFont(this->font);
+	this->pointText.setFont(this->menu_font);
 	this->pointText.setCharacterSize(20);
 	this->pointText.setFillColor(sf::Color::White);
 
 	this->hpText.setPosition(window->getSize().x / 1.2, 10.f);
-	this->hpText.setFont(this->font);
+	this->hpText.setFont(this->menu_font);
 	this->hpText.setCharacterSize(20);
 	this->hpText.setFillColor(sf::Color::White);
 	std::stringstream hp_stream;
@@ -58,6 +59,11 @@ float GUI::getHp()
 	return hp;
 }
 
+float GUI::getPoints()
+{
+	return points;
+}
+
 void GUI::renderGUI(RenderWindow *window)
 {
 	PrimitiveRenderer renderer;
@@ -75,7 +81,7 @@ void GUI::renderGUI(RenderWindow *window)
 	std::stringstream game_over_stream;
 	if(hp <= 0)
 	{
-		game_over_stream << "EARTH IS DOOMED";
+		game_over_stream << "EARTH IS DOOMED\n Press ESC to exit";
 		this->game_over_text.setString(game_over_stream.str());
 		window->draw(game_over_text);
 	}

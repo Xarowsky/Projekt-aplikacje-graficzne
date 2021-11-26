@@ -15,12 +15,13 @@ void enemies::updateEnemy()
 
 enemies::enemies()
 {
+	speed = -5.f;
 }
 
 enemies::enemies(float speed, RenderWindow *window, sf::Color col)
 {
 	this->speed = speed;
-	this->enemy.setPosition(window->getSize().x, (rand() % (window->getSize().y - 50))+25);
+	this->enemy.setPosition(window->getSize().x, (rand() % (window->getSize().y - 50)) + 25);
 	enemyColor = col;
 }
 

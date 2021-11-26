@@ -13,6 +13,7 @@
 #include <sstream>
 #include "enemies.h"
 #include "GUI.h"
+#include "Menu.h"
 
 
 class game
@@ -21,6 +22,7 @@ private:
 	sf::Color ColArr[5] = { sf::Color::Red, sf::Color::Green, sf::Color::Magenta, sf::Color::Cyan, sf::Color::White};
 	sf::RenderWindow *window;
 	textures textureBank;
+	Menu gameMenu;
 	std::vector<enemies*> enemies_list;
 	std::vector<gameObject*> gameObjectBank;
 	player *gamePlayer;
@@ -29,13 +31,18 @@ private:
 	SoundBuffer buffer;
 	SoundBuffer death_buffer;
 	SoundBuffer oof;
+	sf::SoundBuffer mainBuffer;
+	Sound mainSound;
 	Sound sound;
 	Sound death_sound;
 	Sound gotHit;
-	float timer = 0, delay = 0.2, timer2 = 0, delay2 = 5;
+	float timer = 0, delay = 0.2, timer2 = 0, delay2 = 3;
 	projectile *newProjectile;
 	gameObject *background;
-
+	bool menuStates[5];
+	bool isPressed;
+	bool menuOff;
+	int difficulty;
 	int screenHeight;
 	int screenWidth;
 

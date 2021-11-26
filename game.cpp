@@ -3,7 +3,6 @@
 #include "LineSegment.h"
 #include "PrimitiveRenderer.h"
 
-
 game::game()
 {
 	textureBank = textures();
@@ -13,6 +12,7 @@ game::game()
 	this->playerInit();
 	gamegui.initGUI(window);
 	this->loop();
+	this->menuOff = false;
 }
 
 
@@ -38,7 +38,12 @@ void game::initSound()
 	death_sound.setBuffer(death_buffer);
 	if (!oof.loadFromFile("assets/oof.wav"))
 		exit(-1);
+	if (!mainBuffer.loadFromFile("assets/louda.wav"))
+		exit(-1);
+	mainSound.setBuffer(mainBuffer);
 	gotHit.setBuffer(oof);
+	gotHit.setPitch(2);
+	mainSound.play();
 }
 
 
@@ -94,22 +99,32 @@ void game::loop()
 void game::windowRefresh()
 {
 	this->window->clear();
-	this->background->render(*window);
-	this->updateObjects();
-	this->renderObjects();
-	this->updateEnemies();
-	this->renderEnemies();
-	if (timer2 > delay2)
+	gameMenu.draw(*window);
+	gameMenu.updateVolume(mainSound.getVolume());
+	if (gameMenu.GetPressedItem() == 0 && isPressed == true)
 	{
-		this->spawnEnemies();
-		timer2 = 0;
+		this->background->render(*window);
+		this->updateObjects();
+		this->renderObjects();
+		this->updateEnemies();
+		this->renderEnemies();
+		if (timer2 > delay2)
+		{
+			this->spawnEnemies();
+			timer2 = 0;
+		}
+		if (!gameover)
+		{
+			this->gamePlayer->render(*window);
+			death_sound.play();
+		}
+		gamegui.renderGUI(window);
+		gameMenu.inGameVolume(mainSound.getVolume(), window);
 	}
-	if(!gameover)
+	if (gameMenu.GetPressedItem() == 1 && isPressed == true )
 	{
-		this->gamePlayer->render(*window);
-		death_sound.play();
+		exit(0);
 	}
-	gamegui.renderGUI(window);
 	this->window->display();
 }
 
@@ -127,9 +142,24 @@ void game::windowCtl()
 		case sf::Event::KeyPressed:
 			if (event.key.code == sf::Keyboard::Escape)
 				window->close();
+			if (event.key.code == sf::Keyboard::Up)
+				gameMenu.MoveUp();
+			if (event.key.code == sf::Keyboard::Down)
+				gameMenu.MoveDown();
+			if (event.key.code == sf::Keyboard::Enter) {
+				isPressed = true;
+				menuOff = true;
+			}
+			if (event.key.code == sf::Keyboard::Left) {
+				if(mainSound.getVolume() >= 0)
+					mainSound.setVolume(mainSound.getVolume() - 1);
+			}
+			if (event.key.code == sf::Keyboard::Right) {
+				if (mainSound.getVolume() <= 100)
+					mainSound.setVolume(mainSound.getVolume() + 1);
+			}
 			break;
 		}
-
 	}
 }
 
@@ -197,7 +227,19 @@ void game::renderObjects()
 
 void game::spawnEnemies()
 {
-	int amount = rand() % 4 + 2;
+	int amount = rand() % 4 + difficulty;
+	if (gamegui.getPoints() > 250) {
+		difficulty = 4;
+		delay2 = 2;
+	}
+	if (gamegui.getPoints() > 500) {
+		difficulty = 6;
+		delay2 = 2;
+	}
+	if (gamegui.getPoints() > 1000) {
+		difficulty = 6;
+		delay2 = 1;
+	}
 	for (int i = 0; i < amount; ++i)
 	{
 		this->enemies_list.push_back(new enemies(-5.f, window, ColArr[rand() % 5]));

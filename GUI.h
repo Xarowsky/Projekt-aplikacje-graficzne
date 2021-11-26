@@ -8,7 +8,7 @@
 class GUI
 {
 private:
-	sf::Font font;
+	sf::Font menu_font;
 	sf::Font game_over_font;
 	sf::Text game_over_text;
 	sf::Text pointText;
@@ -26,5 +26,6 @@ public:
 
 	void hit(float damage);
 	float getHp();
+	float getPoints();
 };
 
