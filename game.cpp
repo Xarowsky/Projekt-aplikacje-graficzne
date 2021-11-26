@@ -92,6 +92,7 @@ void game::loop()
 		this->windowCtl();
 		this->windowRefresh();
 		if (gamegui.getHp() <= 0) gameover = true;
+		this->cleanupObjects();
 	}
 }
 
@@ -169,6 +170,36 @@ bool game::isColliding(Sprite s1, CircleShape s2)
 }
 
 
+void game::cleanupObjects()
+{
+	std::vector<gameObject*>::iterator itPro = gameObjectBank.begin();
+	std::vector<enemies*>::iterator itEne = enemies_list.begin();
+
+	while (itPro != gameObjectBank.end() && itEne != enemies_list.end())
+	{
+		for (itPro; itPro != gameObjectBank.end(); itPro++)
+		{
+			if ((*itPro)->objectSprite.getPosition().x > window->getSize().x)
+			{
+				delete (*itPro);
+				itPro = gameObjectBank.erase(itPro);
+				break;
+			}
+		}
+
+		for (itEne = enemies_list.begin(); itEne != enemies_list.end(); itEne++)
+		{
+			if ((*itEne)->enemy.getPosition().x < 0)
+			{
+				delete (*itEne);
+				itEne = enemies_list.erase(itEne);
+				break;
+			}
+		}
+	}
+}
+
+
 void game::updateObjects()
 {
 	std::vector<gameObject*>::iterator itPro = gameObjectBank.begin();
@@ -184,8 +215,8 @@ void game::updateObjects()
 				if (isColliding((*itPro)->objectSprite,(*itEne)->enemy))
 				{
 					sound.play();
-					(*itEne)->~enemies();
-					(*itPro)->~gameObject();
+					delete (*itEne);
+					delete (*itPro);
 					itEne = enemies_list.erase(itEne);
 					itPro = gameObjectBank.erase(itPro);
 					gamegui.updateGUI();
@@ -201,7 +232,7 @@ void game::updateObjects()
 			if (isColliding(gamePlayer->objectSprite, (*itEne)->enemy))
 			{
 				gotHit.play();
-				(*itEne)->~enemies();
+				delete (*itEne);
 				gamegui.hit(30.f);
 				itEne = enemies_list.erase(itEne);
 				return;
@@ -233,11 +264,11 @@ void game::spawnEnemies()
 		delay2 = 2;
 	}
 	if (gamegui.getPoints() > 500) {
-		difficulty = 6;
+		difficulty = 8;
 		delay2 = 2;
 	}
 	if (gamegui.getPoints() > 1000) {
-		difficulty = 6;
+		difficulty = 16;
 		delay2 = 1;
 	}
 	for (int i = 0; i < amount; ++i)

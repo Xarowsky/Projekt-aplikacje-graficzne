@@ -66,5 +66,6 @@ public:
 	void updateObjects();
 	void renderObjects();
 	void shoot();
+	void cleanupObjects();
 	bool gameover = false;
 };
