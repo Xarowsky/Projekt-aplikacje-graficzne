@@ -4,7 +4,10 @@
 #include <sstream>
 #include <iostream>
 #define MAX_NUMBER_OF_ITEMS 2
-
+/**@brief
+*klasa glownego menu
+* 
+************************************/
 class Menu
 {
 private:
@@ -17,13 +20,29 @@ private:
 	sf::Sprite menuSprite;
 public:
 	Menu();
+	/**@brief
+	*metoda rysujaca menu
+	*/
 	void draw(sf::RenderWindow& window);
+	/**@brief
+	*zmiana obecnie wybranej opcji menu
+	*/
 	void MoveUp();
+	/**@brief
+	*zmiana obecnie wybranej opcji menu
+	*/
 	void MoveDown();
-	float MoveLeft(float currentVolume);
-	float MoveRight(float currentVolume);
+	/**@brief
+	*
+	*/
 	void updateVolume(int currentVolume);
+	/**@brief
+	*
+	*/
 	void inGameVolume(int currentVolume, sf::RenderWindow *window);
+	/**@brief
+	*getter zwracajacy wybrana opcje menu
+	*/
 	int GetPressedItem() { return selectedItemIndex; }
 };
 

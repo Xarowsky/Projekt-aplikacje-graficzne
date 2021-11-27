@@ -179,17 +179,17 @@ bool game::isColliding(Sprite s1, CircleShape s2)
 
 void game::cleanupObjects()
 {
-	std::vector<gameObject*>::iterator itPro = gameObjectBank.begin();
+	std::vector<gameObject*>::iterator itPro = ProjectileBank.begin();
 	std::vector<enemies*>::iterator itEne = enemies_list.begin();
 
-	while (itPro != gameObjectBank.end() && itEne != enemies_list.end())
+	while (itPro != ProjectileBank.end() && itEne != enemies_list.end())
 	{
-		for (itPro; itPro != gameObjectBank.end(); itPro++)
+		for (itPro; itPro != ProjectileBank.end(); itPro++)
 		{
 			if ((*itPro)->objectSprite.getPosition().x > window->getSize().x)
 			{
 				delete (*itPro);
-				itPro = gameObjectBank.erase(itPro);
+				itPro = ProjectileBank.erase(itPro);
 				break;
 			}
 		}
@@ -209,10 +209,10 @@ void game::cleanupObjects()
 
 void game::updateObjects()
 {
-	std::vector<gameObject*>::iterator itPro = gameObjectBank.begin();
+	std::vector<gameObject*>::iterator itPro = ProjectileBank.begin();
 	std::vector<enemies*>::iterator itEne = enemies_list.begin();
 
-	for (itPro; itPro != gameObjectBank.end(); itPro++)
+	for (itPro; itPro != ProjectileBank.end(); itPro++)
 	{
 		if ((*itPro)->type == "projectile")
 		{
@@ -225,7 +225,7 @@ void game::updateObjects()
 					delete (*itEne);
 					delete (*itPro);
 					itEne = enemies_list.erase(itEne);
-					itPro = gameObjectBank.erase(itPro);
+					itPro = ProjectileBank.erase(itPro);
 					gamegui.updateGUI();
 					return;
 				}
@@ -251,13 +251,13 @@ void game::updateObjects()
 void game::shoot()
 {
 	projectile* newProjectile = new projectile(textureBank.getPlayerProjectile(), window, gamePlayer->objectSprite.getPosition().x, gamePlayer->objectSprite.getPosition().y);
-	this->gameObjectBank.push_back(newProjectile);
+	this->ProjectileBank.push_back(newProjectile);
 }
 
 void game::renderObjects()
 {
-	std::vector<gameObject*>::iterator it = gameObjectBank.begin();
-	for (it; it != gameObjectBank.end(); it++)
+	std::vector<gameObject*>::iterator it = ProjectileBank.begin();
+	for (it; it != ProjectileBank.end(); it++)
 	{
 		(*it)->render(*window);
 	}

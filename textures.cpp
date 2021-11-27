@@ -28,7 +28,7 @@ sf::Texture* textures::getPlayerProjectile()
 	return &playerProjectile;
 }
 
-sf::Texture* textures::getBulletTexture()
-{
-	return &bulletTexture;
-}
+//sf::Texture* textures::getBulletTexture()
+//{
+//	return &bulletTexture;
+//}

@@ -15,7 +15,9 @@
 #include "GUI.h"
 #include "Menu.h"
 
-
+/**@brief
+*Klasa zwierajaca glowna petle, jej skladowe oraz logike
+*****************************************/
 class game
 {
 private:
@@ -24,7 +26,7 @@ private:
 	textures textureBank;
 	Menu gameMenu;
 	std::vector<enemies*> enemies_list;
-	std::vector<gameObject*> gameObjectBank;
+	std::vector<gameObject*> ProjectileBank;
 	player *gamePlayer;
 	float time;
 	float time2;
@@ -50,22 +52,74 @@ private:
 
 //	virtual ~game();
 public:
+	/**@brief
+	*konstruktor gry
+	*/
 	game();
+	/**@brief
+	*glowna petla gry
+	*/
 	void loop();
+	/**@brief
+	*metoda inicjalizujaca okno
+	*/
 	void initWindow();
+	/**@brief
+	*metoda ladujaca dzwiek
+	*/
 	void initSound();
+	/**@brief
+	*metoda inicjalizujaca obiekt gracza
+	*/
 	void playerInit();
+	/**@brief
+	*czesc logiki odpowiedzialna za tworzenie przeciwnikow
+	*/
 	void spawnEnemies();
+	/**@brief
+	*metoda aktualizujaca stan przeciwnikow
+	*/
 	void updateEnemies();
+	/**@brief
+	*metoda renderujaca przeciwnikow
+	*/
 	void renderEnemies();
+	/**@brief
+	*logika sterowania
+	*/
 	void updateControls();
+	/**@brief
+	*metoda odswiezajaca ekran
+	*/
 	void windowRefresh();
+	/**@brief
+	*metoda sterujaca ekranem oraz menu glownym
+	*/
 	void windowCtl();
+	/**@brief
+	*metoda sprawdzajaca kolizje miedzy spritem a kolem
+	*/
 	bool isColliding(Sprite s1, CircleShape s2);
+	/**@brief
+	*metoda inicjalizujaca tlo ekranu
+	*/
 	void initBackgroud();
+	/**@brief
+	*metoda zmieniajaca stan pociskow
+	*/
 	void updateObjects();
+	/**@brief
+	*metoda renderujaca pociski
+	*/
 	void renderObjects();
+	/**@brief
+	*metoda tworzaca nowe pociski
+	*/
 	void shoot();
+	/**@brief
+	*metoda dekonstruujaca obiekty znajdujace sie poza ekranem
+	*/
 	void cleanupObjects();
+
 	bool gameover = false;
 };

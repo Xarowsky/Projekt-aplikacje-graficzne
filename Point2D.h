@@ -1,7 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 using namespace sf;
-
+/**@brief
+*Prymityw zawierajacy pojedynczy punkt
+* 
+**********************/
 class Point2D : public sf::Shape
 {
 private:
